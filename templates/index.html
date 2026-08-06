@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+<head>
+    <meta charset="UTF-8"
+    <title>Cardápio Digital</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    <p>Bem-vindo ao nosso cardápio</p>
+    <h2>Lanches</h2>
+    {% for item in itens %}
+        {% if item.categoria == "Lanches" %}
+            <p>{{ item.nome }} - R$ {{ item.preco }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h2>Bebidas</h2>
+    {% for item in itens %}
+        {% if item.categoria == "Bebidas" %}
+            <p>{{ item.nome }} - R$ {{ item.preco }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h2>Adicionar Novo Item</h2>
+
+    <form action="/adicionar" method="Post">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label>Preço:</label>
+        <input type="number" name="preco" step="0.01" required>
+
+        <label>Categoria:</label>
+        <select name="categoria">
+    <option value="Lanches">Lanches</option>
+    <option value="Bebidas">Bebidas</option>
+</select>
+
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>

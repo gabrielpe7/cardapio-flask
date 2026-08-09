@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from banco import criar_tabela, popular_dados_iniciais, buscar_itens, inserir_item
+import os
 
 app = Flask(__name__)
 
@@ -19,6 +20,5 @@ def adicionar_item():
     
     return redirect("/")
 
-criar_tabela()
-popular_dados_iniciais()
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)

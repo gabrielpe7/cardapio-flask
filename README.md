@@ -64,7 +64,7 @@ Acesse `http://127.0.0.1:5000` no navegador.
 - Edição e exclusão de itens já cadastrados
 - Upload de imagens dos pratos
 - Painel administrativo com login (reaproveitando o sistema de autenticação de outro projeto)
-- Deploy em um servidor real
+- Deploy em um servidor real / Feito
 
 ## Autor
 

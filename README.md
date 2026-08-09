@@ -2,6 +2,8 @@
 
 Sistema web para gerenciamento de cardápio, com back-end em Flask, banco de dados SQLite e páginas geradas dinamicamente via templates, desenvolvido como projeto de estudo.
 
+**Veja funcionando:** https://cardapio-flask.onreader.com
+
 ## Funcionalidades
 
 - Exibição do cardápio organizado por categoria, gerado automaticamente a partir do banco de dados

@@ -20,5 +20,6 @@ def adicionar_item():
     
     return redirect("/")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+criar_tabela()
+popular_dados_iniciais()
+app.run(debug=True, host="0.0.0.0", port=5000)

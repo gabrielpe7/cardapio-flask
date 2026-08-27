@@ -1,23 +1,33 @@
-import sqlite3
+import psycopg2
+import os
 
-ARQUIVO = "cardapio.db"
 
+def conectar():
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST", "localhost"),
+        database=os.getenv("DB_NAME", "postgres"),
+        user=os.getenv("DB_USER", "postgres"),
+        password=os.getenv("DB_PASSWORD", "postgres"),
+    )
+    
 def criar_tabela():
-    conexao = sqlite3.connect(ARQUIVO)
+    conexao = conectar()
     cursor = conexao.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS itens (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             nome TEXT NOT NULL,
             preco REAL NOT NULL,
             categoria TEXT NOT NULL
         )
     """)
     conexao.commit()
+    cursor.close()
     conexao.close()
     
+    
 def popular_dados_iniciais():
-    conexao = sqlite3.connect(ARQUIVO)
+    conexao = conectar()
     cursor = conexao.cursor()
     
     cursor.execute("SELECT COUNT(*) FROM itens")
@@ -31,18 +41,21 @@ def popular_dados_iniciais():
             ("Suco Natural", 8.00, "Bebidas"),
         ]
         cursor.executemany(
-            "INSERT INTO itens (nome, preco, categoria) VALUES (?, ?, ?)",
+            "INSERT INTO itens (nome, preco, categoria) VALUES (%s, %s, %s)",
             itens_iniciais
         )
         conexao.commit()
         
+    cursor.close()
     conexao.close()
     
+    
 def buscar_itens():
-    conexao = sqlite3.connect(ARQUIVO)
+    conexao = conectar()
     cursor = conexao.cursor()
     cursor.execute("SELECT nome, preco, categoria FROM itens")
     resultados = cursor.fetchall()
+    cursor.close()
     conexao.close()
     
     itens = []
@@ -51,12 +64,14 @@ def buscar_itens():
         
     return itens
 
+
 def inserir_item(nome, preco, categoria):
-    conexao = sqlite3.connect(ARQUIVO)
+    conexao = conectar()
     cursor = conexao.cursor()
     cursor.execute(
-        "INSERT INTO itens (nome, preco, categoria) VALUES (?, ?, ?)",
+        "INSERT INTO itens (nome, preco, categoria) VALUES (%s, %s, %s)",
         (nome, preco, categoria)
     )
     conexao.commit()
+    cursor.close()
     conexao.close()

@@ -2,7 +2,11 @@
 
 Sistema web para gerenciamento de cardápio, com back-end em Flask, banco de dados SQLite e páginas geradas dinamicamente via templates, desenvolvido como projeto de estudo.
 
+<<<<<<< HEAD
 **Veja funcionando:** [cardapio-flask.onrender.com](https://cardapio-flask.onrender.com)
+=======
+**Veja funcionando:** [https://cardapio-flask.onreader.com](https://cardapio-flask.onrender.com)
+>>>>>>> 25577811c2dcd57bbefb3a5e4484f5c0138e3211
 
 ## Funcionalidades
 
@@ -64,7 +68,7 @@ Acesse `http://127.0.0.1:5000` no navegador.
 - Edição e exclusão de itens já cadastrados
 - Upload de imagens dos pratos
 - Painel administrativo com login (reaproveitando o sistema de autenticação de outro projeto)
-- Deploy em um servidor real
+- Deploy em um servidor real / Feito
 
 ## Autor
 

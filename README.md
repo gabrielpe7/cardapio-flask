@@ -1,74 +1,76 @@
-# Cardápio Dinâmico com Flask
+# Cardápio Dinâmico — Containerizado com Docker
 
-Sistema web para gerenciamento de cardápio, com back-end em Flask, banco de dados SQLite e páginas geradas dinamicamente via templates, desenvolvido como projeto de estudo.
+Aplicação web full-stack (Flask + PostgreSQL) totalmente containerizada com Docker e Docker Compose, publicada como imagem pública no Docker Hub, desenvolvida como projeto de estudo.
 
-<<<<<<< HEAD
-**Veja funcionando:** [cardapio-flask.onrender.com](https://cardapio-flask.onrender.com)
-=======
-**Veja funcionando:** [https://cardapio-flask.onreader.com](https://cardapio-flask.onrender.com)
->>>>>>> 25577811c2dcd57bbefb3a5e4484f5c0138e3211
+🔗 **Imagem pública:** `docker pull gabrielpe7/cardapio-flask`
+🔗 **Versão ao vivo (Render):** https://cardapio-flask.onrender.com
 
 ## Funcionalidades
 
-- Exibição do cardápio organizado por categoria, gerado automaticamente a partir do banco de dados
-- Formulário para adicionar novos itens diretamente pelo navegador, sem editar código
-- Interface estilizada com CSS, reaproveitando um design responsivo
+- Exibição de cardápio organizado por categoria, gerado dinamicamente via templates
+- Formulário para adicionar novos itens diretamente pelo navegador
+- Aplicação e banco de dados rodando em containers separados, orquestrados com Docker Compose
+- Persistência de dados garantida por volume Docker, mesmo com containers recriados
+- Imagem publicada publicamente no Docker Hub, pronta para ser baixada e executada em qualquer máquina
 
 ## Tecnologias utilizadas
 
-- **Python 3**
-- **Flask** (framework web)
-- **Jinja2** (templates dinâmicos, incluso no Flask)
-- **SQLite** (via módulo `sqlite3`, nativo do Python)
+- **Python 3 / Flask** (back-end e templates Jinja2)
+- **PostgreSQL** (banco de dados relacional, via `psycopg2`)
+- **Docker e Docker Compose** (containerização e orquestração)
 - **HTML5 / CSS3**
 
 ## Estrutura do projeto
 
 ```
 cardapio-flask/
-├── main.py           # rotas e lógica da aplicação
-├── banco.py          # funções de persistência em SQLite
+├── main.py                # rotas e lógica da aplicação
+├── banco.py                # persistência em PostgreSQL
+├── requirements.txt
+├── Dockerfile              # imagem da aplicação
+├── docker-compose.yml      # orquestração da aplicação + banco de dados
 ├── templates/
-│   └── index.html    # template da página, processado pelo Flask
+│   └── index.html
 └── static/
-    └── style.css      # estilos da aplicação
+    └── style.css
 ```
 
 ## Sobre o projeto
 
-Este projeto foi construído em etapas, unindo três áreas trabalhadas em projetos anteriores — back-end, banco de dados e front-end:
+Este projeto evoluiu em etapas até chegar à containerização completa:
 
-1. **Templates dinâmicos** — geração de HTML a partir de dados do Python, usando a sintaxe do Jinja2 (`{{ }}` para valores, `{% %}` para lógica)
-2. **Persistência de dados** — itens do cardápio armazenados e consultados em banco de dados relacional
-3. **Formulários web** — recebimento de dados enviados pelo usuário via HTML, sem uso de JSON/API
-4. **Organização de arquivos estáticos** — separação entre templates e arquivos CSS, seguindo a convenção do Flask
+1. **Aplicação web full-stack** — Flask, templates dinâmicos e banco de dados
+2. **Deploy em nuvem** — publicação em produção via Render
+3. **Containerização** — empacotamento da aplicação com Docker, garantindo execução idêntica em qualquer ambiente
+4. **Orquestração multi-container** — uso de Docker Compose para rodar aplicação e banco de dados PostgreSQL como serviços conectados, com verificação de saúde (healthcheck) entre eles
+5. **Publicação da imagem** — imagem disponibilizada publicamente no Docker Hub
 
-## Como executar
+## Como executar com Docker Compose
 
-Pré-requisito: ter o [Python 3](https://www.python.org/) instalado.
+Pré-requisito: ter o [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado e em execução.
 
 ```bash
 # Clone o repositório
 git clone https://github.com/gabrielpe7/cardapio-flask.git
-
-# Entre na pasta do projeto
 cd cardapio-flask
 
-# Instale as dependências
-python -m pip install -r requirements.txt
-
-# Execute o programa
-python main.py
+# Suba a aplicação e o banco de dados juntos
+docker compose up --build
 ```
 
-Acesse `http://127.0.0.1:5000` no navegador.
+Acesse `http://localhost:5000`.
+
+## Como executar apenas a imagem publicada
+
+```bash
+docker pull gabrielpe7/cardapio-flask
+```
 
 ## Possíveis melhorias futuras
 
-- Edição e exclusão de itens já cadastrados
-- Upload de imagens dos pratos
-- Painel administrativo com login (reaproveitando o sistema de autenticação de outro projeto)
-- Deploy em um servidor real / Feito
+- Adicionar um serviço de cache (Redis) ao Compose
+- Pipeline de CI/CD para build e push automáticos da imagem a cada atualização
+- Orquestração em escala maior com Kubernetes
 
 ## Autor
 
